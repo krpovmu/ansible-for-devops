@@ -1,0 +1,8 @@
+ansible -i hosts.ini example -m ping -u rundeck
+192.168.1.127 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/libexec/platform-python"
+    },
+    "changed": false,
+    "ping": "pong"
+}

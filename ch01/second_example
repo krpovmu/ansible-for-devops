@@ -1,0 +1,5 @@
+ansible -i hosts.ini example -a free -h -u rundeck
+192.168.1.127 | CHANGED | rc=0 >>
+              total        used        free      shared  buff/cache   available
+Mem:          1.8Gi       988Mi       368Mi        16Mi       470Mi       681Mi
+Swap:         4.0Gi          0B       4.0Gi
