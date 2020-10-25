@@ -1,0 +1,119 @@
+ ansible -i hosts.ini example -m ping -u rundeck
+ ansible -i hosts.ini example -m ping -u rundeck
+ ansible -i hosts.ini example -m ping -u rundeck
+ ansible -i hosts.ini example -m ls -u rundeck
+ ansible -i hosts.ini example -m ping -u rundeck
+ ansible -i hosts.ini example -m ping -u rundeck
+ ansible -i hosts.ini example -m ping -u rundeck >> first_example
+ ansible -i hosts.ini example -a "free -h" -u rundeck
+ ansible -i hosts.ini example -a "free -h" -u rundeck >> second_example
+ ansible multi -a "hostname"
+ ansible multi -a "hostname"
+ ansible multi -a "hostname"
+ ansible multi -a "hostname"
+ ansible multi -a "hostname"
+ ansible multi -a "hostname" -f 1
+ ansible -a "ls -l " multi
+ ansible -a "ls -l /" multi
+ ansible -a "uname -sr" multi
+ ansible -a "df -h" multi
+ ansible -a "free -m" multi
+ ansible -a "date" multi
+ ansible -m setup multi
+ ansible -m setup multi | less
+ ansible multi -b -m yum -a "name=chrony state=present"
+ ansible multi -b -m service -a "name=chronyd state=started enabled=yes"
+ ansible multi -b -m yum -a "name=chrony state=present" | grep changed
+ ansible multi -b -m yum -a "name=chrony state=present"
+ ansible multi -b -m service -a "name=chronyd state=started enabled=yes"
+ ansible multi -b -m service -a "name=chronyd state=started enabled=yes" | enabled
+ ansible multi -b -m service -a "name=chronyd state=started enabled=yes" | grep enabled
+ ansible multi -b -m service -a "name=chronyd state=started enabled=yes" | grep changed
+ ansible multi -b -m shell -a "date"
+ ansible multi -b -a "chronyc tracking"
+ ansible app -b -m yum -a "name=python3-pip state=present"
+ ansible app -b -m shell -a "python --version"
+ ansible app -b -m pip -a "name=django<4 state=present"
+ ansible app -b -m shell -a "python -m django --version"
+ ansible db -b -m yum -a "name=mariadb-server state=present"
+ ansible db -b -m service -a "name=mariadb state=started enabled=yes"
+ ansible db -b "systemctl status mariadb"
+ ansible db -b -a "systemctl status mariadb"
+ ansible db -b -m service -a "name=mariadb state=status"
+ ansible db -b -a "systemctl status mariadb"
+ ansible db -b -m yum -a "name=firewalld state=present"
+ ansible db -b -m service -a "name=firewalld state=started enable=yes"
+ ansible db -b -m firewalld -a "zone=database state=present permanent=yes"
+ ansible db -b -m firewalld -a "source=192.168.60.0/24 zone=database state=present permanent=yes"
+ ansible db -b -m firewalld -a "source=192.168.60.0/24 zone=database state=enabled permanent=yes"
+ ansible db -b -m firewalld -a "zone=database state=present permanent=yes"
+ ansible db -b -m ansible.posix.firewalld -a "zone=database state=present permanent=yes"
+ ansible db -b -a "iptables -L"
+ ansible db -b -a "netstat -nltp"
+ ansible db -b -m firewall -a "state=enabled permanent=yes"
+ ansible db -b -m firewalld -a "state=enabled permanent=yes"
+ ansible db -b -m firewalld -a "name=firewalld state=started enabled=yes"
+ ansible db -b -m firewalld -a "name=firewalld state=started"
+ ansible db -b -m firewalld -a "name=firewalld"
+ ansible db -b -m firewalld -a "name=firewalld state=started"
+ ansible db -b -m firewalld -a "zone=database state=enabled permanent=yes"
+ ansible db -b -a "iptables -L"
+ ansible db -b -a "ufw"
+ ansible db -b -m firewalld -a "source=192.168.60.0/24 zone=database"
+ ansible db -b -m firewalld -a "source=192.168.60.0/24 zone=database state=enabled permanent=yes"
+ ansible db -b -m firewalld -a "source=192.168.60.0/24 state=enabled permanent=yes"
+ ansible db -b -a "firewall-cmd --list-all"
+ ansible db -b -a "systemctl status firewalld"
+ ansible db -b -m service -a "name=firewalld state=started enabled=yes"
+ ansible db -b -a "systemctl status firewalld"
+ ansible db -b -m firewalld -a "zone=database state=enabled permanent=yes"
+ ansible db -b -m firewalld -a "source=192.168.60.0/24 state=enabled permanent=yes"
+ ansible db -b -m firewalld -a "port=3306/tcp zone=database state=enabled permanent=yes"
+ ansible db -b -a "firewall-cmd --list-all"
+ ansible db -b -a "firewall-cmd --get-active-zones"
+ ansible db -b -m firewalld -a "port=3306/tcp zone=database state=enabled permanent=yes"
+ ansible db -b -m firewalld -a "zone=database state=present permanent=yes"
+ ansible db -b -a "firewalld-cmd --state"
+ ansible db -b -a -m shell "firewalld-cmd --state"
+ ansible db -b -m -a shell "firewalld-cmd --state"
+ ansible db -b -a -m shell "firewalld-cmd --state"
+ ansible db -b -a "firewalld-cmd --state"
+ ansible db -b -a "ls -l"
+ ansible db -b -a "firewall-cmd --state"
+ ansible db -b -a "firewall-cmd --get-active-zone"
+ ansible db -b -a "firewall-cmd --get-active-zones"
+ ansible db -b -a "firewall-cmd --list-all-zones"
+ ansible db -b -a "firewall-cmd --zone=database --list-all"
+ ansible db -b -a "firewall-cmd --direct --get-all-rules"
+ ansible db -b -a "firewall-cmd --direct --get-all-chains
+ ansible db -b -a "firewall-cmd --direct --get-all-chains"
+ ansible db -b -m yum -a "name=firewalld state=present"
+ ansible db -b -m service -a "name=firewalld state=started enabled=yes"
+ ansible db -b -m firewalld -a "zone=database state=enabled permanent=yes"
+ ansible db -b -m firewalld -a "source=192.168.60.0/24 state=enabled permanent=yes"
+ ansible db -b -m firewalld -a "port=3306/tcp zone=database state=enabled permanent=yes"
+ ansible db -b -a "firewall-cmd --zone=database --list-all"
+ ansible db -b -a "iptables -L"
+ ansible db -b -m yum -a "name=python3-PyMySQL state=present"
+ ansible db -b -m mysql_user -a "name=django host=% password=12345 priv=*.*:ALL state=present"
+ ansible app -b -a "systemctl status chronyd"
+ ansible app -b -a "systemctl restart chronyd" --limit "192.168.60.4"
+ ansible app -n -m group "name=admin state=present"
+ ansible app -n -m group -a "name=admin state=present"
+ ansible app -b -m group -a "name=admin state=present"
+ ansible app -b -m user -a "name=jhondoe group=admin createhome=yes"
+ ansible app -b -m package -a "name=git state=present"
+ ansible app -b -m package -a "name=git state=present"
+ ansible multi -m stat -a "path=/etc/environment"
+ ansible multi -m stat -a "path=/etc/environment" | less
+ ansible multi -m stat -a "path=/etc/hosts" | less
+ ansible multi -m copy -a "src=/etc/hosts dest=/tmp/hosts"
+ ansible multi -b -m fetch -a "src=/etc/hosts dest=/tmp"
+ ansible multi -b -B 3600 -P 0 -a "yum -y update"
+ ansible multi -b -m async_status -a "jid=245353916438.3995"
+ ansible multi -b -a "tail -f /var/log/message"
+ ansible multi -b -a "tail -f /var/log/messages"
+ ansible multi -b -m shell -a "tail -f /var/log/messages | grep ansible-command | wc -l"
+ ansible multi -b -a "rpm -qa | grep ssh"
+ ansible multi -b -a "rpm -qa" | grep ssh
+ ansible multi -b -a "rpm -qa" | grep ssh | grep server
